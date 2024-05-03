@@ -1,0 +1,32 @@
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.x-axis-grid-lines line, .y-axis-grid-lines line {
+  stroke-dasharray: 4;
+  stroke: grey
+}
+
+
+.rings:hover .ring polygon {
+  opacity: 0.5;
+}
+
+.rings .ring:hover polygon {
+  stroke-width: 3px;
+  opacity: 1;
+}
+
+.radial-axis polygon {
+  stroke: lightgrey
+}
+
+.radar-chart-tooltip-cursor {
+  stroke: grey
+}
