@@ -16,8 +16,25 @@ export type VerticalAxisProps = AxisProps & {
   tickCount?: number;
 };
 
+export type Curve =
+  | "basis"
+  | "basisClosed"
+  | "basisOpen"
+  | "bumpX"
+  | "bumpY"
+  | "bump"
+  | "linear"
+  | "linearClosed"
+  | "natural"
+  | "monotoneX"
+  | "monotoneY"
+  | "step"
+  | "stepBefore"
+  | "stepAfter";
+
 export type LineProps = SVGAttributes<SVGPathElement> & {
   dot?: boolean | ReactElement | ((props: SVGAttributes<SVGElement>) => ReactNode);
+  curve?: Curve;
 } & SeriesProps;
 
 export type PieChartProps = { data: Record<string, string | number>[]; dataKey: string } & SVGAttributes<SVGSVGElement>;

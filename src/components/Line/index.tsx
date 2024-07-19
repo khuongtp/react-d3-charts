@@ -1,14 +1,14 @@
 "use client";
 
 import { select } from "d3-selection";
-import { curveMonotoneX, line } from "d3-shape";
+import { line } from "d3-shape";
 import { SVGAttributes, useContext, useLayoutEffect, useRef } from "react";
-import { DEFAULT_X_AXIS_ID } from "../../constants";
+import { CURVES, DEFAULT_X_AXIS_ID } from "../../constants";
 import { useChartStore } from "../../hooks/useChartStore";
 import { LineProps } from "../../types";
 import CartesianChartGroup, { GroupContext } from "../CartesianChartGroup";
 
-const Line = ({ dataKey, dot, yAxisId, xAxisId = DEFAULT_X_AXIS_ID, ...props }: LineProps) => {
+const Line = ({ dataKey, dot, yAxisId, xAxisId = DEFAULT_X_AXIS_ID, curve, ...props }: LineProps) => {
   const pathRef = useRef<SVGPathElement | null>(null);
   const data = useChartStore((state) => {
     return state.data;
@@ -31,20 +31,22 @@ const Line = ({ dataKey, dot, yAxisId, xAxisId = DEFAULT_X_AXIS_ID, ...props }: 
     if (!data?.length || !width || !xScale || !yScale) {
       return;
     }
+    const lineBuilder = line<(typeof data)[number]>()
+      .x((d) => {
+        return (xScale(d[xScaleDataKey]) ?? 0) + (xScale.bandwidth?.() ?? 0) / 2;
+      })
+      .y((d) => {
+        return yScale(d[dataKey]) ?? 0;
+      });
+
+    if (curve) {
+      lineBuilder.curve(CURVES[curve]);
+    }
+
     select(pathRef.current)
       .datum(dataRange ? data.slice(Math.max(0, dataRange[0] - 1), Math.min(data.length, dataRange[1] + 2)) : data)
-      .attr(
-        "d",
-        line<(typeof data)[number]>()
-          .x((d) => {
-            return (xScale(d[xScaleDataKey]) ?? 0) + (xScale.bandwidth?.() ?? 0) / 2;
-          })
-          .y((d) => {
-            return yScale(d[dataKey]) ?? 0;
-          })
-          .curve(curveMonotoneX),
-      );
-  }, [data, dataKey, dataRange, width, xScale, yScale]);
+      .attr("d", lineBuilder);
+  }, [curve, data, dataKey, dataRange, width, xScale, yScale]);
 
   if (!data?.length || !width || !xScale || !yScale) {
     return null;
