@@ -196,8 +196,8 @@ const TestCartesianChart = () => {
         // data={data}
         scaleExtent={[1, Infinity]}
       >
-        <HorizontalAxis dataKey="x" axisId="xAxis0" tickLabelWidth={40} gridLines />
-        <VerticalAxis
+        <HorizontalAxis dataKey="x" axisId="xAxis0" tickLabelWidth={40} gridLines paddingInner={1} paddingOuter={0} />
+        {/* <VerticalAxis
           tickSize={8}
           tickCount={7}
           // tickFormatter={(domainValue) => {
@@ -208,7 +208,7 @@ const TestCartesianChart = () => {
           axisId="yAxisLeft"
           orientation="left"
           gridLines
-        />
+        /> */}
         <VerticalAxis
           orientation="right"
           axisId="yAxisRight"
@@ -218,7 +218,7 @@ const TestCartesianChart = () => {
           //   return endDomain + 1.5;
           // }}
         />
-        <Bar
+        {/* <Bar
           dataKey="value1"
           // render={(props) => {
           //   return <rect fill="red" {...props} />;
@@ -227,7 +227,7 @@ const TestCartesianChart = () => {
           yAxisId="yAxisLeft"
         />
         <Bar dataKey="value2" fill="green" stackId="a" yAxisId="yAxisLeft" />
-        <Bar dataKey="value3" fill="blue" yAxisId="yAxisLeft" />
+        <Bar dataKey="value3" fill="blue" yAxisId="yAxisLeft" /> */}
         <Line dot curve="bumpX" dataKey="value4" stroke="black" strokeWidth={1} yAxisId="yAxisRight" xAxisId="xAxis0" />
         {/* <CartesianChartTooltip render={<TooltipContent />} /> */}
       </CartesianChart>

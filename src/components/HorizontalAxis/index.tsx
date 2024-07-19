@@ -21,6 +21,8 @@ const HorizontalAxis = forwardRef<SVGGElement, HorizontalAxisProps>(function XAx
     tickLabelWidth,
     orientation = "bottom",
     gridLines,
+    paddingInner = 0.1,
+    paddingOuter = 0,
     ...props
   },
   ref,
@@ -201,7 +203,7 @@ const HorizontalAxis = forwardRef<SVGGElement, HorizontalAxisProps>(function XAx
     if (!data?.length || !width) {
       return;
     }
-    let scale = scaleBand<AxisDomain>().paddingInner(0.1).paddingOuter(0);
+    let scale = scaleBand<AxisDomain>().paddingInner(paddingInner).paddingOuter(paddingOuter);
     if (dataKey) {
       scale = scale.domain(
         data.map((item) => {
@@ -211,7 +213,7 @@ const HorizontalAxis = forwardRef<SVGGElement, HorizontalAxisProps>(function XAx
     }
     scale = scale.range([0, width - (marginLeft ?? 0) - (marginRight ?? 0)]);
     setAxes({ [axisId]: { dimension: "x", scale: scale } });
-  }, [axisId, data, dataKey, marginLeft, marginRight, setAxes, width]);
+  }, [axisId, data, dataKey, marginLeft, marginRight, paddingInner, paddingOuter, setAxes, width]);
 
   if (!data?.length || !width || !height) {
     return null;

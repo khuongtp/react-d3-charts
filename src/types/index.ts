@@ -65,6 +65,8 @@ export type HorizontalAxisProps = AxisProps & {
   minTickGap?: number;
   tickLabelWidth?: number;
   orientation?: "bottom" | "top";
+  paddingInner?: number;
+  paddingOuter?: number;
 } & SVGAttributes<SVGGElement>;
 
 export type AxisProps = {
